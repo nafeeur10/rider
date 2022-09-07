@@ -1,0 +1,65 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: pathao-assignment
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./:/var/www/pathao:cached
+      - ./.docker/nginx:/etc/nginx/conf.d
+      - ./.docker/nginx/ssl:/etc/nginx/conf.d/ssl
+    networks:
+      - pathao-assignment-network
+
+  app:
+    build:
+      context: ./.docker/php
+      dockerfile: Dockerfile
+    container_name: pathao-assignment
+    restart: unless-stopped
+    volumes: 
+      - ./:/var/www/html/pathao:cached
+      - ./.docker/php/php-fpm.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ~/.ssh:/root/.ssh
+    depends_on:
+      - mariadb
+      - redis
+    networks:
+      - pathao-assignment-network
+
+  mariadb:
+    image: mariadb:10.5.5
+    container_name: pathao-assignment-mariadb
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    volumes: 
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=pathao
+      - MYSQL_PASSWORD=pathao
+      - MYSQL_DATABASE=pathao
+    networks:
+      - pathao-assignment-network
+
+  redis:
+    image: redis:alpine
+    container_name: pathao-assignment-redis
+    volumes:
+      - ./data/redis:/data
+    ports:
+      - 6379:6379
+    networks:
+      - pathao-assignment-network
+
+networks:
+  pathao-assignment-network:
+    driver: bridge
+
+volumes:
+  pathao-assignment-volumes:
+    driver: local
