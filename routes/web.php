@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return response()->json([
-        'data' => 'OK',
-    ], 200);
-});
+//Route::get('/', function () {
+//    return response()->json([
+//        'data' => 'OK',
+//    ], 200);
+//});
