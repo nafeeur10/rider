@@ -9,5 +9,5 @@ class VerificationCode extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'otp', 'expire_at'];
+    protected $guarded = ['id'];
 }

@@ -34,6 +34,6 @@ class Driver extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'mobile_verified_at' => 'datetime',
     ];
 }

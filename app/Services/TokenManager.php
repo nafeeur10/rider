@@ -8,7 +8,7 @@ use Laravel\Sanctum\PersonalAccessToken;
 
 class TokenManager
 {
-    public function createToken(User $user, array $abilities = ['*']): NewAccessToken
+    public function createToken($user, array $abilities = ['*']): NewAccessToken
     {
         return $user->createToken(config('app.name'), $abilities);
     }
