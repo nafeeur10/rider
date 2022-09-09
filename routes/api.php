@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\{AuthController, DriverController};
+use App\Http\Controllers\Api\{AuthController, DriverController, OtpController};
 use Illuminate\Support\Facades\Route;
 
 /* Customer Authentication Routes Starts Here*/
@@ -10,5 +10,11 @@ Route::post('logout', [AuthController::class, 'logoutCustomer'])->name('auth.cus
 /* Customer Authentication Routes Ends Here*/
 
 /* Driver Authentication Routes Starts Here */
-Route::post('driver/register', [DriverController::class, 'registerDriver'])->name('auth.driver.register');
+Route::group(['prefix' => 'driver'], static function(){
+    Route::post('register', [DriverController::class, 'registerDriver'])->name('auth.driver.register');
+    Route::post('login', [DriverController::class, 'driverLoginWithOtp'])->name('auth.driver.login');
+    Route::group(['prefix' => 'otp'], static function(){
+        Route::post('generate', [OtpController::class, 'otpGenerate'])->name('otp.generate');
+    });
+});
 /* Driver Authentication Routes Ends Here */

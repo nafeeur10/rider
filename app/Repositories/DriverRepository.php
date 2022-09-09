@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Driver;
+use App\Models\VerificationCode;
 use Illuminate\Support\Facades\Hash;
 
 class DriverRepository extends  Repository

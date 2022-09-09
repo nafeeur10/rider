@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DriverLoginRequest extends FormRequest
+class OtpRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class DriverLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'driver_id'       => 'required|exists:drivers,id',
-            'otp'                => 'required'
+            'mobile' => 'required|exists:drivers,mobile'
         ];
     }
 }
