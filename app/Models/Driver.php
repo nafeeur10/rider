@@ -36,4 +36,8 @@ class Driver extends Model
     protected $casts = [
         'mobile_verified_at' => 'datetime',
     ];
+
+    public function car() {
+        return $this->hasOne(Car::class);
+    }
 }

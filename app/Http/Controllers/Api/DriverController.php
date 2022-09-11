@@ -41,8 +41,7 @@ class DriverController extends Controller
         if (!$verificationCode) {
             return $this->response('OTP not correct', 401);
         }
-
-        elseif($verificationCode && Carbon::now()->isAfter($verificationCode->expire_at)){
+        elseif($verificationCode && Carbon::now()->isAfter($verificationCode->expire_at)) {
             return $this->response('OTP Expired', 401);
         }
 
