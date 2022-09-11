@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->enum('status', ['accepted', 'rejected', 'started', 'ended']);
+            $table->enum('status', ['pending', 'accepted', 'rejected', 'started', 'ended']);
             $table->string('pickup-location');
             $table->string('drop-off-location');
             $table->timestamps();
